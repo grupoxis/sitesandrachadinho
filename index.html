@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Ofertas VIP no WhatsApp · Promoções todo dia</title>
+  <!-- Font Awesome 6 (ícones leves) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #f6f9fc;
+      color: #1a2e3b;
+      line-height: 1.4;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem 5rem; /* padding-bottom para sticky */
+    }
+
+    /* Tipografia */
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subhead {
+      font-size: 1.2rem;
+      color: #2c4b5f;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    /* Botão principal */
+    .btn-wa {
+      display: inline-block;
+      width: 100%;
+      background: #25D366;
+      color: white;
+      font-weight: 700;
+      font-size: 1.4rem;
+      padding: 1.1rem 1rem;
+      border-radius: 60px;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 12px 20px -12px rgba(37, 211, 102, 0.4);
+      transition: transform 0.1s ease, background 0.2s;
+      border: none;
+      cursor: pointer;
+      margin: 0.8rem 0 1.2rem;
+    }
+
+    .btn-wa i {
+      margin-right: 8px;
+      font-size: 1.6rem;
+      vertical-align: middle;
+    }
+
+    .btn-wa:active {
+      transform: scale(0.98);
+      background: #20b859;
+    }
+
+    .btn-wa.small {
+      font-size: 1.2rem;
+      padding: 0.9rem;
+    }
+
+    /* Sticky CTA (mobile) */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.8rem 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      border-top: 1px solid rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .sticky-cta .btn-wa {
+      margin: 0;
+      font-size: 1.2rem;
+      padding: 0.9rem;
+    }
+
+    /* Cards de confiança / bullets */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      margin: 1.2rem 0;
+    }
+
+    .trust-item {
+      background: white;
+      padding: 0.8rem 0.5rem;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #1a3b47;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .trust-item i {
+      color: #25D366;
+      font-size: 1.1rem;
+    }
+
+    .bullet-list {
+      background: white;
+      border-radius: 32px;
+      padding: 1.5rem 1.2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 10px 25px -12px rgba(0,0,0,0.1);
+    }
+
+    .bullet {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+    }
+
+    .bullet i {
+      font-size: 1.6rem;
+      color: #25D366;
+      min-width: 32px;
+    }
+
+    .bullet span {
+      font-weight: 500;
+    }
+
+    .bullet small {
+      color: #4f6f7f;
+      font-weight: 400;
+    }
+
+    /* prova social */
+    .prova-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,128,0,0.05);
+    }
+
+    .prova-numbers {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .prova-numbers div {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #075e54;
+    }
+
+    .prova-numbers span {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #3b5b6b;
+    }
+
+    .testimonial {
+      display: flex;
+      gap: 12px;
+      background: #f0f7fa;
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .testimonial i {
+      font-size: 2rem;
+      color: #128C7E;
+    }
+
+    .testimonial p {
+      font-size: 0.95rem;
+    }
+
+    .testimonial strong {
+      color: #075e54;
+    }
+
+    /* simulação de print */
+    .print-placeholder {
+      background: #e9f1f5;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 1rem 0;
+      border-left: 5px solid #25D366;
+    }
+
+    .print-placeholder i {
+      font-size: 2.2rem;
+      color: #128C7E;
+    }
+
+    .print-placeholder .price {
+      font-weight: 800;
+      color: #c5283d;
+    }
+
+    /* segmentação */
+    .segmentation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1.8rem 0;
+    }
+
+    .seg-btn {
+      flex: 1 0 auto;
+      background: white;
+      border: 1px solid #d0dee6;
+      border-radius: 60px;
+      padding: 0.8rem 1rem;
+      font-weight: 600;
+      color: #1e3b4a;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+      transition: all 0.1s;
+    }
+
+    .seg-btn i {
+      margin-right: 6px;
+      color: #25D366;
+    }
+
+    .seg-btn:active {
+      background: #eafaf0;
+      border-color: #25D366;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: white;
+      border-radius: 24px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .faq-question {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .faq-question i {
+      color: #25D366;
+    }
+
+    .faq-answer {
+      color: #3b5f6f;
+      font-size: 0.95rem;
+      padding-left: 1.8rem;
+    }
+
+    /* contador / urgência */
+    .urgent-box {
+      background: linear-gradient(145deg, #fdf6e0, #fff2cc);
+      border-radius: 40px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 1rem;
+      border: 1px solid #ffd966;
+    }
+
+    .urgent-text {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #8a5a00;
+    }
+
+    #countdown {
+      font-family: 'Courier New', monospace;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: white;
+      padding: 0.2rem 1rem;
+      border-radius: 60px;
+      color: #b45f06;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* live counter */
+    .live-proof {
+      background: #deedf2;
+      border-radius: 60px;
+      padding: 0.5rem 1.2rem;
+      display: inline-block;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .live-proof i {
+      color: #25D366;
+      margin-right: 5px;
+    }
+
+    /* footer */
+    .footer-links {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.85rem;
+      color: #5e7a87;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: #1f5e73;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: rgba(0,0,0,0.05);
+      margin: 1rem 0;
+    }
+
+    /* desktop ajuste */
+    @media (min-width: 680px) {
+      .sticky-cta {
+        display: none; /* só mobile */
+      }
+      .container {
+        padding-bottom: 2rem;
+      }
+      .btn-wa {
+        width: auto;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- CTA STICKY (mobile) -->
+  <div class="sticky-cta">
+    <a href="#" class="btn-wa small"><i class="fab fa-whatsapp"></i> Entrar no grupo VIP</a>
+  </div>
+
+  <div class="container">
+    <!-- Headline + promessa -->
+    <h1>🔥 Ofertas relâmpago<br>no seu WhatsApp</h1>
+    <div class="subhead">Cupons, achadinhos e alertas de preço • até 70% off</div>
+
+    <!-- Prova ao vivo + contador -->
+    <div class="live-proof"><i class="fas fa-user-plus"></i> +2.345 pessoas entraram hoje</div>
+    
+    <!-- Urgência real (contador) -->
+    <div class="urgent-box">
+      <span class="urgent-text"><i class="fas fa-clock"></i> Próximo lote de ofertas:</span>
+      <span id="countdown">23:59:59</span>
+    </div>
+
+    <!-- CTA principal #1 -->
+    <a href="#" class="btn-wa"><i class="fab fa-whatsapp"></i> Quero entrar e receber ofertas</a>
+
+    <!-- Confiança rápida (risco zero) -->
+    <div class="trust-grid">
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Sem spam (1–3 msg/dia)</div>
+      <div class="trust-item"><i class="fas fa-shield-alt"></i> Links verificados</div>
+      <div class="trust-item"><i class="fas fa-sign-out-alt"></i> Saia quando quiser</div>
+      <div class="trust-item"><i class="fas fa-users"></i> +12.000 membros</div>
+    </div>
+
+    <!-- Prova social (prints + depoimento) -->
+    <div class="prova-card">
+      <div class="prova-numbers">
+        <div>12k+ <span>membros</span></div>
+        <div>530 <span>ofertas/mês</span></div>
+        <div>4.8 <span>⭐ avaliação</span></div>
+      </div>
+      <!-- simulação de print de oferta -->
+      <div class="print-placeholder">
+        <i class="fas fa-tag"></i>
+        <div><strong>Airfryer Mondial</strong> <span class="price">R\$ 189,90</span> <span style="text-decoration: line-through; color:#999;">R\$ 359</span><br>⚡ via grupo ontem</div>
+      </div>
+      <!-- depoimento -->
+      <div class="testimonial">
+        <i class="fas fa-user-circle"></i>
+        <p><strong>Ana C.</strong> “Economizei R$ 180 em compras de mercado só essa semana! Vale muito”</p>
+      </div>
+    </div>
+
+    <!-- O que você vai receber (bullets) -->
+    <div class="bullet-list">
+      <div class="bullet"><i class="fas fa-bolt"></i> <span><strong>Promo relâmpago</strong> <small>(estoque acaba rápido)</small></span></div>
+      <div class="bullet"><i class="fas fa-ticket-alt"></i> <span><strong>Cupons e frete grátis</strong> <small>amazon, mercado livre, etc</small></span></div>
+      <div class="bullet"><i class="fas fa-chart-line"></i> <span><strong>Alerta de queda de preço</strong> <small>produtos que você quer</small></span></div>
+      <div class="bullet"><i class="fas fa-search"></i> <span><strong>Achadinhos do dia</strong> <small>selecionados pela comunidade</small></span></div>
+    </div>
+
+    <!-- Segmentação rápida (vários grupos/interesses) -->
+    <h2>📌 Escolha seu tipo de oferta:</h2>
+    <div class="segmentation">
+      <a href="#" class="seg-btn"><i class="fas fa-home"></i> Casa</a>
+      <a href="#" class="seg-btn"><i class="fas fa-gem"></i> Beleza</a>
+      <a href="#" class="seg-btn"><i class="fas fa-headphones"></i> Eletrônicos</a>
+    </div>
+
+    <!-- CTA #2 (meio) -->
+    <a href="#" class="btn-wa"><i class="fab fa-whatsapp"></i> Entrar no grupo VIP agora</a>
+
+    <!-- FAQ rápido (reduz objeções) -->
+    <h2 style="margin-top: 2.2rem;">❓ Perguntas rápidas</h2>
+    <div class="faq-item">
+      <div class="faq-question"><i class="fas fa-question-circle"></i> É gratuito?</div>
+      <div class="faq-answer">Sim, 100% gratuito. Você só precisa ter WhatsApp.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><i class="fas fa-question-circle"></i> Quantas mensagens por dia?</div>
+      <div class="faq-answer">No máximo 3 por dia, só ofertas relevantes (sem spam).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><i class="fas fa-question-circle"></i> Posso sair quando quiser?</div>
+      <div class="faq-answer">Claro! Um link no próprio grupo permite sair a qualquer momento.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><i class="fas fa-question-circle"></i> Que tipo de promoção?</div>
+      <div class="faq-answer">Cupons, ofertas relâmpago, achadinhos de mercado, Amazon, etc.</div>
+    </div>
+
+    <!-- CTA #3 (final) -->
+    <a href="#" class="btn-wa" style="margin-top: 1.5rem;"><i class="fab fa-whatsapp"></i> Quero receber ofertas no WhatsApp</a>
+
+    <!-- Rodapé com segurança / políticas -->
+    <div class="footer-links">
+      <a href="#">Quem somos</a>
+      <a href="#">Política de privacidade</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Contato</a>
+    </div>
+    <p style="text-align: center; font-size: 0.8rem; color: #7f99a8; margin-top: 1rem;">© 2026 · Grupo de Promoções · Sem spam, sem cadastro</p>
+  </div>
+
+  <!-- Script do contador (urgência real) -->
+  <script>
+    (function() {
+      // Contador que vai até 23:59:59 de hoje (hora local)
+      function getEndOfDay() {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+      }
+
+      function updateCountdown() {
+        const end = getEndOfDay();
+        const now = new Date();
+        const diff = end - now;
+
+        if (diff <= 0) {
+          document.getElementById('countdown').innerText = "00:00:00";
+          return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText = 
+          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+  </script>
+
+  <!-- (opcional) Para fins de exemplo, todos os links '#' devem ser substituídos pelo link real do grupo -->
+</body>
+</html>
