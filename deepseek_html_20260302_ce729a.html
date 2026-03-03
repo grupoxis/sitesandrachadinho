@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Alterar Link do Grupo</title>
+    <style>
+        body {
+            background: linear-gradient(145deg, #faf4ef, #f5efe9);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+        .panel-box {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(37,211,102,0.2);
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: #1e2e2e;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .current-link {
+            background: #e9f1f5;
+            padding: 1rem;
+            border-radius: 16px;
+            word-break: break-all;
+            margin: 1rem 0;
+            border-left: 4px solid #1da959;
+        }
+        input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #ccc;
+            border-radius: 60px;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            background: #1da959;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -8px rgba(0,120,0,0.5);
+            margin-bottom: 1rem;
+        }
+        button:hover {
+            background: #168f46;
+        }
+        .success {
+            color: #1da959;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .error {
+            color: #c5283d;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .logout {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .logout a {
+            color: #1f5e73;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel-box">
+        <h2>Alterar link do grupo WhatsApp</h2>
+        <p><strong>Link atual no site:</strong></p>
+        <div class="current-link" id="current-link">Carregando...</div>
+
+        <input type="url" id="new-link" placeholder="Cole aqui o novo link do grupo">
+        <button onclick="updateLink()">Trocar link</button>
+
+        <div id="message" class="success"></div>
+        <div class="logout"><a href="/login.html">← Voltar ao login</a></div>
+    </div>
+
+    <script>
+        // Carregar o link atual do index.html? Melhor buscar da API.
+        // Vamos fazer uma requisição para obter o link atual (opcional)
+        async function loadCurrentLink() {
+            try {
+                const res = await fetch('/api/update-link?action=get');
+                const data = await res.json();
+                document.getElementById('current-link').innerText = data.currentLink || 'Não encontrado';
+            } catch (e) {
+                document.getElementById('current-link').innerText = 'Erro ao carregar link.';
+            }
+        }
+
+        async function updateLink() {
+            const newLink = document.getElementById('new-link').value.trim();
+            if (!newLink) {
+                document.getElementById('message').innerText = 'Por favor, insira um link.';
+                document.getElementById('message').className = 'error';
+                return;
+            }
+
+            // Envia para a API
+            const res = await fetch('/api/update-link', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ link: newLink, user: 'admin', pass: '12345' }) // credenciais fixas
+            });
+
+            const result = await res.json();
+            if (res.ok) {
+                document.getElementById('message').innerText = '✅ Link atualizado com sucesso!';
+                document.getElementById('message').className = 'success';
+                document.getElementById('current-link').innerText = newLink;
+                document.getElementById('new-link').value = '';
+            } else {
+                document.getElementById('message').innerText = '❌ Erro: ' + result.error;
+                document.getElementById('message').className = 'error';
+            }
+        }
+
+        loadCurrentLink();
+    </script>
+</body>
+</html>
