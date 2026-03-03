@@ -1,142 +1,577 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel - Alterar Link do Grupo</title>
-    <style>
-        body {
-            background: linear-gradient(145deg, #faf4ef, #f5efe9);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 1rem;
-        }
-        .panel-box {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 36px;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 500px;
-            border: 1px solid rgba(37,211,102,0.2);
-        }
-        h2 {
-            font-family: 'Playfair Display', serif;
-            color: #1e2e2e;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .current-link {
-            background: #e9f1f5;
-            padding: 1rem;
-            border-radius: 16px;
-            word-break: break-all;
-            margin: 1rem 0;
-            border-left: 4px solid #1da959;
-        }
-        input {
-            width: 100%;
-            padding: 1rem;
-            margin: 1rem 0;
-            border: 1px solid #ccc;
-            border-radius: 60px;
-            font-size: 1rem;
-        }
-        button {
-            width: 100%;
-            background: #1da959;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 60px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px -8px rgba(0,120,0,0.5);
-            margin-bottom: 1rem;
-        }
-        button:hover {
-            background: #168f46;
-        }
-        .success {
-            color: #1da959;
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .error {
-            color: #c5283d;
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .logout {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .logout a {
-            color: #1f5e73;
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Sandra Cruz Indica · Grupo VIP de Beleza e Looks</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Playfair e Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #faf4ef 0%, #f5efe9 100%);
+      color: #2a2a2a;
+      line-height: 1.4;
+      min-height: 100vh;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* textura sutil */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMjUiIC8+PC9zdmc+');
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container-custom {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem 1rem 3rem;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Card que envolve todo o conteúdo */
+    .content-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 1.8rem 1.2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(212, 90, 122, 0.15);
+    }
+
+    /* Tipografia */
+    h1, h2, .h1-like {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+      color: #3e2e23;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 1.5rem 0 0.8rem;
+      color: #3e2e23;
+      text-align: center;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: #6b4f3c;
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    /* Botão WhatsApp - nova cor rosa */
+    .btn-wa {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      background: #D45A7A;  /* rosa médio */
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 20px 30px -10px rgba(212, 90, 122, 0.4);
+      transition: transform 0.2s ease, background 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      margin: 0.6rem auto 1rem;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-wa:hover {
+      animation: shake 0.4s ease-in-out;
+      background: #B23B5E;  /* rosa mais escuro */
+      box-shadow: 0 25px 35px -8px rgba(170, 60, 90, 0.5);
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-2px) rotate(-0.5deg); }
+      40% { transform: translateX(2px) rotate(0.5deg); }
+      60% { transform: translateX(-1px) rotate(-0.3deg); }
+      80% { transform: translateX(1px) rotate(0.3deg); }
+      100% { transform: translateX(0); }
+    }
+
+    .btn-wa i {
+      margin-right: 8px;
+      font-size: 1.4rem;
+      vertical-align: middle;
+    }
+
+    .btn-wa:active {
+      transform: scale(0.97);
+      background: #942F4C;
+      box-shadow: 0 15px 20px -8px rgba(140, 40, 70, 0.6);
+    }
+
+    /* Sticky CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 0.7rem 1rem;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-cta .btn-wa {
+      margin: 0 auto;
+      max-width: 90%;
+    }
+
+    /* Cards de confiança */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+      margin: 1.2rem 0;
+      width: 100%;
+    }
+
+    .trust-item {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 0.6rem 0.3rem;
+      border-radius: 28px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #3e2e23;
+      border: 1px solid rgba(212, 90, 122, 0.2);
+      text-align: center;
+    }
+
+    .trust-item i {
+      color: #D45A7A;
+      font-size: 1rem;
+    }
+
+    /* Lista de benefícios */
+    .bullet-list {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 32px;
+      padding: 1.2rem 1.2rem;
+      margin: 1.2rem 0;
+      box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(212, 90, 122, 0.15);
+      width: 100%;
+    }
+
+    .bullet {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    .bullet i {
+      font-size: 1.5rem;
+      color: #D45A7A;
+      min-width: 32px;
+    }
+
+    .bullet span {
+      font-weight: 500;
+      color: #3e2e23;
+    }
+
+    .bullet small {
+      color: #6f5e4e;
+      font-weight: 400;
+      display: block;
+      font-size: 0.85rem;
+    }
+
+    /* Depoimentos */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      margin: 1.2rem 0;
+      width: 100%;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 32px;
+      padding: 1rem;
+      border: 1px solid rgba(212, 90, 122, 0.15);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .testimonial-card i {
+      font-size: 2rem;
+      color: #D45A7A;
+      flex-shrink: 0;
+    }
+
+    .testimonial-card p {
+      font-size: 0.9rem;
+      color: #3e2e23;
+      margin: 0;
+    }
+
+    .testimonial-card strong {
+      color: #B23B5E;
+    }
+
+    /* Urgência */
+    .urgent-box {
+      background: rgba(251, 228, 235, 0.8); /* tom suave de rosa */
+      backdrop-filter: blur(4px);
+      border-radius: 50px;
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 1rem 0 0.8rem;
+      border: 1px solid #D45A7A;
+      width: 100%;
+      gap: 0.5rem;
+    }
+
+    .urgent-text {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #8a4a5a; /* tom mais escuro combinando */
+    }
+
+    #countdown {
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: white;
+      padding: 0.2rem 1rem;
+      border-radius: 60px;
+      color: #b45f6e;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    /* Live counter */
+    .live-proof {
+      background: rgba(212, 90, 122, 0.12);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 0.5rem 1.2rem;
+      display: inline-block;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      border: 1px solid rgba(212, 90, 122, 0.3);
+      color: #7b4a57;
+      font-size: 0.9rem;
+    }
+
+    .live-proof i {
+      color: #D45A7A;
+      margin-right: 6px;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 0.7rem;
+      border: 1px solid rgba(212, 90, 122, 0.15);
+      width: 100%;
+      text-align: left;
+    }
+
+    .faq-question {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #3e2e23;
+      font-size: 1rem;
+    }
+
+    .faq-question i {
+      color: #D45A7A;
+    }
+
+    .faq-answer {
+      color: #5f4a3a;
+      font-size: 0.9rem;
+      padding-left: 1.8rem;
+    }
+
+    /* Rodapé simplificado */
+    .copyright {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7a6454;
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .copyright i {
+      color: #D45A7A;
+      margin: 0 3px;
+    }
+
+    .copyright a {
+      color: #B23B5E;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="panel-box">
-        <h2>Alterar link do grupo WhatsApp</h2>
-        <p><strong>Link atual no site:</strong></p>
-        <div class="current-link" id="current-link">Carregando...</div>
+  <!-- Sticky CTA -->
+  <div class="sticky-cta" id="stickyCTA">
+    <a href="javascript:void(0)" class="btn-wa" onclick="redirectToWhatsApp()"><i class="fab fa-whatsapp"></i> QUERO ENTRAR NO GRUPO</a>
+  </div>
 
-        <input type="url" id="new-link" placeholder="Cole aqui o novo link do grupo">
-        <button onclick="updateLink()">Trocar link</button>
+  <div class="container-custom">
+    <!-- Card que envolve todo o conteúdo -->
+    <div class="content-card">
+      <!-- Headline -->
+      <h1>OFERTAS SELECIONADAS DE BELEZA E LOOKS</h1>
+      
+      <!-- Subheadline -->
+      <div class="subhead">
+        Fique por dentro de promoções de skincare, maquiagem e roupas com até 70% de desconto.
+      </div>
 
-        <div id="message" class="success"></div>
-        <div class="logout"><a href="/login.html">← Voltar ao login</a></div>
-    </div>
+      <!-- Botão principal -->
+      <a href="javascript:void(0)" class="btn-wa" id="mainCta" onclick="redirectToWhatsApp()"><i class="fab fa-whatsapp"></i> QUERO ENTRAR NO GRUPO</a>
 
-    <script>
-        // Carregar o link atual do index.html? Melhor buscar da API.
-        // Vamos fazer uma requisição para obter o link atual (opcional)
-        async function loadCurrentLink() {
-            try {
-                const res = await fetch('/api/update-link?action=get');
-                const data = await res.json();
-                document.getElementById('current-link').innerText = data.currentLink || 'Não encontrado';
-            } catch (e) {
-                document.getElementById('current-link').innerText = 'Erro ao carregar link.';
-            }
+      <!-- Grupo silencioso / acesso gratuito / vagas -->
+      <div style="text-align: center; margin: 0.2rem 0 0.5rem; font-size: 0.9rem; color: #5f4a3a;">
+        <i class="fas fa-volume-off" style="color: #D45A7A;"></i> Grupo silencioso ● Acesso gratuito
+      </div>
+
+      <!-- Vagas restantes (destaque) -->
+      <center>
+        <div style="text-align: center; margin-bottom: 0.5rem; font-size: 1rem; background: rgba(212,90,122,0.1); padding: 0.4rem 1rem; border-radius: 60px; display: inline-block; width: auto; margin-left: auto; margin-right: auto;">
+          <strong>Restam apenas <span style="color: #D45A7A; font-size: 1.2rem;">20</span> vagas hoje</strong>
+        </div>
+
+        <!-- Urgência (contador) -->
+        <div class="urgent-box">
+          <span class="urgent-text"><i class="fas fa-clock"></i> Próximo lote de ofertas:</span>
+          <span id="countdown">23:59:59</span>
+        </div>
+
+        <!-- Contador ao vivo de pessoas -->
+        <div class="live-proof" id="liveCounter"><i class="fas fa-user-plus"></i> <span>847</span> pessoas entraram hoje</div>
+      </center>
+
+      <!-- Gatilhos de confiança -->
+      <div class="trust-grid">
+        <div class="trust-item"><i class="fas fa-shield-alt"></i> Links verificados</div>
+        <div class="trust-item"><i class="fas fa-sign-out-alt"></i> Saia quando quiser</div>
+        <div class="trust-item"><i class="fas fa-tags"></i> Ofertas exclusivas</div>
+        <div class="trust-item"><i class="fas fa-lock"></i> Privacidade total</div>
+      </div>
+
+      <!-- DEPOIMENTOS -->
+      <h2>✨ O que nossas membros dizem</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <i class="fas fa-user-circle"></i>
+          <p><strong>Mariana L.</strong> “Já economizei mais de R$ 200 em produtos de skincare e maquiagem. Os alertas são muito rápidos!”</p>
+        </div>
+        <div class="testimonial-card">
+          <i class="fas fa-user-circle"></i>
+          <p><strong>Camila R.</strong> “O grupo mudou minha rotina de beleza! Comprei meu sérum favorito com 40% de desconto.”</p>
+        </div>
+        <div class="testimonial-card">
+          <i class="fas fa-user-circle"></i>
+          <p><strong>Juliana M.</strong> “Adoro os alertas de queda de preço em makes importadas e roupas. Já comprei várias com frete grátis.”</p>
+        </div>
+        <div class="testimonial-card">
+          <i class="fas fa-user-circle"></i>
+          <p><strong>Patrícia S.</strong> “Economizo todo mês em produtos de cabelo e pele. Melhor grupo que entrei!”</p>
+        </div>
+      </div>
+
+      <!-- O que você vai receber -->
+      <div class="bullet-list">
+        <div class="bullet"><i class="fas fa-bolt"></i> <span><strong>Promo relâmpago de skincare</strong> <small>(estoque limitado)</small></span></div>
+        <div class="bullet"><i class="fas fa-ticket-alt"></i> <span><strong>Cupons de maquiagem e perfumaria</strong> <small>em lojas parceiras</small></span></div>
+        <div class="bullet"><i class="fas fa-chart-line"></i> <span><strong>Alerta de queda de preço em looks</strong> <small>roupas e acessórios</small></span></div>
+        <div class="bullet"><i class="fas fa-search"></i> <span><strong>Achadinhos de beleza todo dia</strong> <small>selecionados pela Sandra</small></span></div>
+      </div>
+
+      <!-- FAQ -->
+      <h2>❓ Perguntas frequentes</h2>
+      <div class="faq-item">
+        <div class="faq-question"><i class="fas fa-question-circle"></i> É gratuito?</div>
+        <div class="faq-answer">Sim, 100% gratuito. Você só precisa ter WhatsApp.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><i class="fas fa-question-circle"></i> Posso sair quando quiser?</div>
+        <div class="faq-answer">Claro! Um link no próprio grupo permite sair a qualquer momento.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><i class="fas fa-question-circle"></i> Que tipo de promoção?</div>
+        <div class="faq-answer">Skincare, maquiagem, perfumaria, roupas e acessórios com descontos reais.</div>
+      </div>
+      
+      <!-- Rodapé simplificado -->
+      <div class="copyright">
+        Feito com <i class="fas fa-heart"></i> por <a href="https://www.instagram.com/italofabrisxx" target="_blank">Italo</a><br><br>
+        <a href="#">Política de privacidade</a> -
+        <a href="#">Termos de uso</a>
+      </div>
+
+    </div> <!-- fim content-card -->
+  </div> <!-- fim container-custom -->
+
+  <!-- Scripts -->
+  <script>
+    function redirectToWhatsApp() {
+      var userAgent = navigator.userAgent;
+      var isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent);
+      var appUrl = "whatsapp://chat?code=";
+      var webUrl = "https://chat.whatsapp.com/";
+
+      if (isMobile) {
+        window.location.href = appUrl;
+        setTimeout(function() {
+          window.location.href = webUrl;
+        }, 1500);
+      } else {
+        window.location.href = webUrl;
+      }
+    }
+
+    (function() {
+      function getEndOfDay() {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+      }
+
+      function updateCountdown() {
+        const end = getEndOfDay();
+        const now = new Date();
+        const diff = end - now;
+        if (diff <= 0) {
+          document.getElementById('countdown').innerText = "00:00:00";
+          return;
         }
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('countdown').innerText = 
+          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
 
-        async function updateLink() {
-            const newLink = document.getElementById('new-link').value.trim();
-            if (!newLink) {
-                document.getElementById('message').innerText = 'Por favor, insira um link.';
-                document.getElementById('message').className = 'error';
-                return;
-            }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
 
-            // Envia para a API
-            const res = await fetch('/api/update-link', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ link: newLink, user: 'admin', pass: '12345' }) // credenciais fixas
-            });
-
-            const result = await res.json();
-            if (res.ok) {
-                document.getElementById('message').innerText = '✅ Link atualizado com sucesso!';
-                document.getElementById('message').className = 'success';
-                document.getElementById('current-link').innerText = newLink;
-                document.getElementById('new-link').value = '';
-            } else {
-                document.getElementById('message').innerText = '❌ Erro: ' + result.error;
-                document.getElementById('message').className = 'error';
-            }
+      function setRandomLiveCounter() {
+        const span = document.querySelector('#liveCounter span');
+        if (span) {
+          const randomNum = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
+          span.innerText = randomNum;
         }
+      }
+      setRandomLiveCounter();
+      setInterval(setRandomLiveCounter, 30000);
 
-        loadCurrentLink();
-    </script>
+      const sticky = document.getElementById('stickyCTA');
+      const mainCta = document.getElementById('mainCta');
+
+      function checkScroll() {
+        if (!mainCta) return;
+        const mainCtaRect = mainCta.getBoundingClientRect();
+        if (mainCtaRect.bottom < 0) {
+          sticky.classList.add('visible');
+        } else {
+          sticky.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll);
+      checkScroll();
+    })();
+  </script>
 </body>
 </html>
